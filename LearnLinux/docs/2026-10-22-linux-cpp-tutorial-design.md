@@ -87,11 +87,11 @@
 - 阶段项目：epoll 回显/聊天服务器 + 共享内存数据通道。
 
 ### 第五部分 车载专题（约 7 章）
-- SocketCAN（两章）：CAN 帧结构、vcan 搭建、原始套接字收发、DBC 概念与信号解码。
+- SocketCAN（两章）：CAN 帧结构、vcan 搭建、原始套接字收发、信号解码。信号解码以手写信号表为主线（位提取、大小端、缩放/偏移）；DBC 只讲文件格式与概念、以及真实项目中由 DBC 生成代码的路径，不实现完整的 DBC 解析器。
 - SOME/IP 协议：报文结构、服务发现（SD）、请求/响应与事件。
 - vsomeip 实操：routing manager、Offer/Request、事件订阅，写一对服务与客户端。
 - Fast DDS（两章）：IDL 与类型生成、发布/订阅、发现机制；QoS 策略（可靠性、历史、截止期等）与实战调法。
-- Vehicle HAL 模拟：Android Automotive 属性模型（Property ID、Area、值类型、变更模式），在 Linux 上以独立服务模拟属性的 get/set/subscribe 全流程，并与前面模块对接概念。
+- Vehicle HAL 模拟：Android Automotive 属性模型（Property ID、Area、值类型、变更模式），实现为一个独立进程的服务，经 Unix 域套接字对外提供属性的 get/set/subscribe 全流程；数据结构按真实 VHAL 的类型形状（如 VehiclePropValue 的字段构成）建模，以便日后对照 AOSP 代码阅读。
 
 ### 第六部分 毕业项目：座舱信号网关（约 3～4 章分步实现）
 - 需求与架构：CAN 信号输入 → 解码 → 内部线程安全分发 → 三路输出。
@@ -143,6 +143,8 @@ LearnLinux/
 - C++17 为工作基线、C++20 设专题（理由：车载量产代码以 14/17 为主，20 是增量方向）。
 - 章节粒度 1～2 小时、按部分分批交付（理由：匹配在职自学节奏，反馈闭环更短）。
 - Vehicle HAL 只做 Linux 模拟、不碰 AOSP（学习者已确认）。
+- VHAL 模拟做成独立进程服务（而非进程内库），接口按真实 VHAL 类型形状建模（理由：与真实 HAL 的进程边界一致、能顺带练 IPC，且日后看 AOSP 代码能对得上）。
+- DBC 以手写信号表教解码原理为主线，不实现完整解析器（理由：C++ 生态缺少成熟的 DBC 解析库，自研解析器会喧宾夺主；真实工作中用的是生成工具）。
 - DDS 以 Fast DDS 为准（学习者已确认 xdds 即其封装）。
 - 设计文档放在 LearnLinux/docs/（服从"教程相关内容都进 LearnLinux"的仓库约定）。
 
