@@ -6,6 +6,7 @@
 最后完成毕业项目"座舱信号网关"。
 
 - 设计文档：[docs/2026-10-22-linux-cpp-tutorial-design.md](docs/2026-10-22-linux-cpp-tutorial-design.md)
+- 产出计划：[docs/2026-10-22-learnlinux-plan.md](docs/2026-10-22-learnlinux-plan.md)
 - 学习方式：逐章更新，每完成一章先确认、再产出下一章；练习以参考答案自查，不懂随时反馈。
 - 环境基线：Ubuntu 24.04 + GCC 13 + CMake。
 
